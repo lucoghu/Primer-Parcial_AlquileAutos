@@ -1,9 +1,9 @@
 package alquilerautos;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-//public abstract class Usuario implements Coleccionable<Usuario>{ 
-public abstract class Usuario<T> implements Coleccionable<T, String> {
+ public abstract class Usuario<T> implements Coleccionable<T,String>, Serializable{ 
 
     private int dni;
     private String nombre;
@@ -19,6 +19,9 @@ public abstract class Usuario<T> implements Coleccionable<T, String> {
         this.telefono = telefono;
         this.usuario = usuario;
         this.clave = clave;
+    }
+
+    public Usuario() { //se necesita para usar Factory con reflection
     }
 
     public int getDni() {
@@ -45,8 +48,6 @@ public abstract class Usuario<T> implements Coleccionable<T, String> {
         return clave;
     }
 
-//agrego los setters de los atributos(direccion,telef,clave) que sí se pueden modificar posterior a crear un usuario.
-//pero se usa el patron Factory con Recflection, se necesita todos los setters para instaciar usuiario concretos(adm, cliente, vendedor)
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
@@ -76,19 +77,28 @@ public abstract class Usuario<T> implements Coleccionable<T, String> {
     }
 
     // este método lo implementa cada tipo de usuario de forma distinta, es "abstract"
-    public abstract boolean ingresar();
+    public abstract boolean ingresar(Sistema s);
 
     @Override
-    public abstract void agregarSiEs(String tipoUsuario, Collection<T> listadoUsuarios);
-
+     public abstract void agregarSiEs(String tipoUsuario, Collection<T> listadoUsuarios);
+  
+    
     @Override
-    public boolean verificarSiEsta(String usuario) {
-        return (this.usuario == usuario);
+    public boolean verificarSiEsta(String usuario){
+         return (this.usuario== usuario);
     }
-
+    
+     
     @Override
-    public abstract void mostrar();
-
-    @Override // Usuario es abstracta, no se puede tener una listada de usuarios concretos.
+    public abstract int mostrar(String tipoUsuario);
+  
+    
+   @Override // Usuario es abstracta, no se puede tener una listada de usuarios concretos.
     public abstract boolean buscar(String codigo);
+
+   
+    public String toString(String tipoUsuario) {
+        return "DNI: "+dni+"\nNombre: "+nombre + "\nDirección: "+direccion+"\nTeléfono: "+telefono + "\nUsuario: "+usuario + "\nClave: "+clave +"\n";
+    }
+    
 }

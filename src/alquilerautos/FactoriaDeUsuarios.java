@@ -34,6 +34,4 @@ public class FactoriaDeUsuarios {
         u.setClave(clave);   //observar que hay setear codunico del cliente
         return u;
     }
-
 }
-

@@ -5,13 +5,12 @@ import java.util.Scanner;
 
 public class Consola {
 
-    private static Scanner entrada = new Scanner(System.in);
+  private static final Scanner entrada = new Scanner(System.in);
 
     public static String leerCadena(String cad) {
         System.out.println(cad);
         String ent = entrada.nextLine();
         return ent;
-
     }
 
     public static int leerEntero(String cad) { //para ingresar opciones o litros
@@ -22,14 +21,18 @@ public class Consola {
             try {
                 System.out.println(cad);
                 ent = entrada.nextInt();
-                esEntero = true;
+                entrada.nextLine();// para que lea el salto de linea despues de introducir el entero(enter)
+                esEntero = true;   //y quede posicionado para leer lo que siga
             } catch (InputMismatchException ei) {
+                entrada.nextLine();
                 System.out.println("El valor ingresado no es un entero, intentelo nuevamente");
             }
         } while (!esEntero);
+        //entrada.close();
         return ent;
     }
-
+    
+    
     public static int leerEntero() {
         Boolean esEntero;
         esEntero = false;
@@ -40,12 +43,16 @@ public class Consola {
                 esEntero = true;
             } catch (InputMismatchException ei) {
                 System.out.println("El valor ingresado no es un entero, intentelo nuevamente");
+                entrada.nextLine();
             }
         } while (!esEntero);
         return ent;
     }
-
-    public static float leerFloat(String cad) { //para ingresar precio
+    
+    
+    
+    
+    public static float leerFloat(String cad) { //para ingresar precio, no lo use ya que use enteros
         Boolean esFloat;
         esFloat = false;
         float flo = 0;
@@ -53,6 +60,7 @@ public class Consola {
             try {
                 System.out.println(cad);
                 flo = entrada.nextFloat();
+                entrada.nextLine();
                 esFloat = true;
             } catch (InputMismatchException ei) {
                 System.out.println("El valor ingresado no es un entero válido o no es un decimal, utilece la coma, intentelo nuevamente");
@@ -60,9 +68,9 @@ public class Consola {
         } while (!esFloat);
         return flo;
     }
-
+    
+    
     public static char siNo(String cad) {
-
         System.out.println(cad);
         String ent = entrada.nextLine();
         while (!(ent.equals("s") || ent.equals("S") || ent.equals("n") || ent.equals("N"))) {
@@ -73,7 +81,7 @@ public class Consola {
         c = ent.charAt(0);
         return c;
     }
-
+    
     public static boolean convertirBoolean(char c) { //para convertir a boolean el dato SI o No
         boolean b = false;                                 //por ejemplo para preguntar si el Auto se entrego o no
         if (c == 's' || c == 'S') {
@@ -81,16 +89,19 @@ public class Consola {
         }
         return b;
     }
-
+    
+    
     public static void mostrarCadena(String cad) {
         System.out.println(cad);
     }
-
+    
+    
     public static void mostrarCadenaEnter(String cad) { //muestra un mensaje, esperando que ingrese un ENTER para continuar
         System.out.println(cad);
         String ent = entrada.nextLine();
     }
+    
+    public static void limpiarBuffer() {
+        entrada.nextLine();
+    }
 }
-
-
-
