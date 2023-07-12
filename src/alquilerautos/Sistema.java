@@ -174,14 +174,19 @@ public class Sistema<T,H> implements Serializable {
                     listaCliente.add((Cliente) ce); //los guardo en una lista de Clientes, "Casteo"
                 }
 
-                for (Cliente cliente : listaCliente) {//en realidad puede haber varios con cod=0, este for devuelve el ultimo
-                    if (cliente.getCodUnico() == cod) // inicalmente el código es 0, según constructor Cliente
-                    {
-                        valor = cod; //código de cliente es único, no esta repetido
+             int j = 0;
+               // Cliente cliente1 = null;
+               boolean encontrado=false;
+                while (j < listaCliente.size() && !encontrado) {
+                   if(listaCliente.get(j).getCodUnico() == cod){
+                        valor = cod;
+                        encontrado=true;
                     } else {
-                        valor = -2; //es mayor que cero pero no coincide con código registrado
+                        valor = -2;
+                        encontrado=false;
                     }
-                }
+                    j++;
+                }  
             } else {
                 valor = -2;
             } //aca la lista está vacia, es el primer cliente
